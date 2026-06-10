@@ -2,7 +2,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://localhost:5000/api"
-    : "https://your-render-service.onrender.com/api");
+    : "https://studyswap-backend.onrender.com/api");
 
 const TOKEN_KEY = "studyswap_access_token";
 const GUEST_CART_KEY = "studyswap_guest_cart";

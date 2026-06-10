@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudySwap Marketplace</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- PAGE HEADER -->
+
+<section class="marketplace-hero">
+
+    <h1>Marketplace</h1>
+
+    <p>
+        Discover affordable student essentials from verified sellers.
+    </p>
+
+</section>
+
+<!-- SEARCH -->
+
+<select id="categorySelect">
+
+    <option value="all" selected hidden>
+    </option>
+
+    <option value="books">Books & Notes</option>
+
+    <option value="laptops">Laptops</option>
+
+    <option value="phones">Smartphones</option>
+
+    <option value="earbuds">Earbuds</option>
+
+    <option value="watches">Smartwatches</option>
+
+    <option value="calculators">Calculators</option>
+
+    <option value="essentials">Student Essentials</option>
+
+    <option value="hostel">Hostel Essentials</option>
+
+</select>
+
+<!-- CATEGORY FILTER -->
+
+<section class="category-filters">
+
+<button data-filter="all">All</button>
+
+<button data-filter="books">Books & Notes</button>
+
+<button data-filter="laptops">Laptops</button>
+
+<button data-filter="phones">Smartphones</button>
+
+<button data-filter="earbuds">Earbuds</button>
+
+<button data-filter="watches">Smartwatches</button>
+
+<button data-filter="calculators">Calculators</button>
+
+<button data-filter="essentials">Student Essentials</button>
+
+<button data-filter="hostel">Hostel Essentials</button>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section class="marketplace-products">
+
+<div class="products-grid">
+
+<!-- Product 1 -->
+
+<div class="product-card" data-category="laptops">
+
+<img src="acer.webp">
+
+<span class="condition">
+Excellent
+</span>
+
+<h3>Acer Aspire 7</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹28,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 2 -->
+
+<div class="product-card" data-category="laptops">
+
+<img src="asus-tuf.webp">
+
+<span class="condition">
+Like New
+</span>
+
+<h3>ASUS TUF Gaming</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹42,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 3 -->
+
+<div class="product-card" data-category="laptops">
+
+<img src="hp-pavilion.png">
+
+<span class="condition">
+Good Condition
+</span>
+
+<h3>HP Pavilion</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹32,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 4 -->
+
+<div class="product-card">
+
+<img src="lenovo.webp" data-category="laptops">
+
+<span class="condition">
+Excellent
+</span>
+
+<h3>Lenovo IdeaPad</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹26,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 5 -->
+
+<div class="product-card" data-category="laptops">
+
+<img src="macbook-air.webp">
+
+<span class="condition">
+Like New
+</span>
+
+<h3>MacBook Air</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹55,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 6 -->
+
+<div class="product-card" data-category="phones">
+
+<img src="iphone.webp">
+
+<span class="condition">
+Excellent
+</span>
+
+<h3>iPhone 14</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹38,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 7 -->
+
+<div class="product-card">
+
+<img src="Vivo-v30e.webp" data-category="phones">
+
+<span class="condition">
+Like New
+</span>
+
+<h3>Vivo V30e</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹18,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 8 -->
+
+<div class="product-card">
+
+<img src="airpods.webp" data-category="earbuds">
+
+<span class="condition">
+Good
+</span>
+
+<h3>Apple AirPods</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹7,500</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 9 -->
+
+<div class="product-card">
+
+<img src="apple-watch.webp" data-category="watches">
+
+<span class="condition">
+Excellent
+</span>
+
+<h3>Apple Watch</h3>
+
+<p>Verified Student Seller</p>
+
+<div class="product-bottom">
+
+<h4>₹15,000</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 10 -->
+
+<div class="product-card">
+
+<img src="casio-fx991cw.webp" data-category="calculators">
+
+<span class="condition">
+Academic Essential
+</span>
+
+<h3>Casio FX-991CW</h3>
+
+<p>Scientific Calculator</p>
+
+<div class="product-bottom">
+
+<h4>₹900</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 11 -->
+
+<div class="product-card">
+
+<img src="engineering-math.webp" data-category="books">
+
+<span class="condition">
+Semester Book
+</span>
+
+<h3>Engineering Mathematics</h3>
+
+<p>Semester 1</p>
+
+<div class="product-bottom">
+
+<h4>₹450</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+<!-- Product 12 -->
+
+<div class="product-card">
+
+<img src="backpack1.webp" data-category="essentials">
+
+<span class="condition">
+Student Essential
+</span>
+
+<h3>Bagpack</h3>
+
+<p>College Use</p>
+
+<div class="product-bottom">
+
+<h4>₹800</h4>
+
+<button>View Details</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>

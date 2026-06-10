@@ -71,7 +71,7 @@ export function Layout() {
         </div>
         <div className="copyright">
           <span>© 2026 StudySwap. All rights reserved.</span>
-          <span>React + Vite migration with the original UI direction preserved.</span>
+          
         </div>
       </footer>
     </>
