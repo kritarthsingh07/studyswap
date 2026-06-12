@@ -2,7 +2,7 @@ import { Category } from "../models/Category.js";
 import { Product } from "../models/Product.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
-import { uploadImages } from "../services/uploadService.js";
+import { normalizeImageUrls, uploadFiles } from "../services/uploadService.js";
 
 function buildProductFilters(query) {
   const filters = { status: "active" };
@@ -84,14 +84,28 @@ export const createProduct = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Category not found.");
   }
 
-  const images = await uploadImages(req.body.images || []);
+  const uploadedImages = await uploadFiles(req.files || []);
+  const imageUrls = normalizeImageUrls(req.body.imageUrls || req.body.images);
+  const images = [...uploadedImages, ...imageUrls];
+
+  if (!images.length) {
+    throw new ApiError(422, "Please add at least one product image.");
+  }
+
   const product = await Product.create({
-    ...req.body,
-    images: images.length ? images : req.body.images || [],
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    condition: req.body.condition,
+    images,
     seller: req.user._id
   });
 
-  const populated = await product.populate("category", "name slug");
+  const populated = await product.populate([
+    { path: "category", select: "name slug" },
+    { path: "seller", select: "name college city" }
+  ]);
   res.status(201).json({ success: true, product: populated });
 });
 
@@ -108,7 +122,10 @@ export const updateProduct = asyncHandler(async (req, res) => {
   Object.assign(product, req.body);
   await product.save();
 
-  const populated = await product.populate("category", "name slug");
+  const populated = await product.populate([
+    { path: "category", select: "name slug" },
+    { path: "seller", select: "name college city" }
+  ]);
   res.json({ success: true, product: populated });
 });
 

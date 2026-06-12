@@ -50,19 +50,23 @@ export const register = asyncHandler(async (req, res) => {
     emailVerificationToken
   });
 
-  await sendMail({
+  const emailResult = await sendMail({
     to: user.email,
     subject: "Verify your StudySwap account",
-    text: `Your verification token is: ${emailVerificationToken}`
+    text: `Your verification token is: ${emailVerificationToken}`,
+    html: `<p>Welcome to StudySwap.</p><p>Your email verification token is <strong>${emailVerificationToken}</strong>.</p>`
   });
 
   const accessToken = await issueTokens(user, res);
 
   res.status(201).json({
     success: true,
-    message: "Account created successfully.",
+    message: emailResult.delivered
+      ? "Account created successfully. Verification email sent."
+      : "Account created, but verification email was not sent.",
     accessToken,
-    user: buildAuthPayload(user)
+    user: buildAuthPayload(user),
+    emailStatus: emailResult
   });
 });
 
@@ -124,13 +128,20 @@ export const forgotPassword = asyncHandler(async (req, res) => {
   user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000);
   await user.save();
 
-  await sendMail({
+  const emailResult = await sendMail({
     to: user.email,
     subject: "StudySwap password reset",
-    text: `Your password reset token is: ${resetToken}`
+    text: `Your password reset token is: ${resetToken}`,
+    html: `<p>Your StudySwap password reset token is <strong>${resetToken}</strong>.</p>`
   });
 
-  res.json({ success: true, message: "Password reset instructions sent." });
+  res.json({
+    success: true,
+    message: emailResult.delivered
+      ? "Password reset instructions sent."
+      : "Password reset token generated, but email delivery is not configured.",
+    emailStatus: emailResult
+  });
 });
 
 export const resetPassword = asyncHandler(async (req, res) => {

@@ -6,6 +6,7 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import morgan from "morgan";
 import hpp from "hpp";
+import path from "path";
 import xss from "xss-clean";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -43,6 +44,7 @@ app.use(morgan("dev"));
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
+app.use("/uploads", express.static(path.resolve(process.cwd(), "uploads")));
 
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "StudySwap API is healthy." });
