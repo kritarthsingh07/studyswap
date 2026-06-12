@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useAsyncData(loader, deps = []) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [tick, setTick] = useState(0);
+
+  const refetch = useCallback(() => setTick((t) => t + 1), []);
 
   useEffect(() => {
     let active = true;
@@ -32,7 +35,8 @@ export function useAsyncData(loader, deps = []) {
     return () => {
       active = false;
     };
-  }, deps);
+    
+  }, [...deps, tick]);
 
-  return { data, loading, error, setData, setError };
+  return { data, loading, error, setData, setError, refetch };
 }

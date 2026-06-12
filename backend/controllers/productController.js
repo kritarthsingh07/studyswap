@@ -88,17 +88,14 @@ export const createProduct = asyncHandler(async (req, res) => {
   const imageUrls = normalizeImageUrls(req.body.imageUrls || req.body.images);
   const images = [...uploadedImages, ...imageUrls];
 
-  if (!images.length) {
-    throw new ApiError(422, "Please add at least one product image.");
-  }
-
+  // Images are optional — allow listing without images (placeholder will show on frontend)
   const product = await Product.create({
     title: req.body.title,
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
     condition: req.body.condition,
-    images,
+    images: images.length ? images : [],
     seller: req.user._id
   });
 
@@ -119,7 +116,13 @@ export const updateProduct = asyncHandler(async (req, res) => {
     throw new ApiError(403, "You cannot update this product.");
   }
 
-  Object.assign(product, req.body);
+  // Only allow updating specific fields
+  const allowed = ["title", "description", "price", "category", "condition", "status"];
+  for (const key of allowed) {
+    if (typeof req.body[key] !== "undefined") {
+      product[key] = req.body[key];
+    }
+  }
   await product.save();
 
   const populated = await product.populate([

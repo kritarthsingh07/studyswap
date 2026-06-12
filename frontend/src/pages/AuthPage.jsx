@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Notice } from "../components/Notice";
 import { api, setAccessToken } from "../services/api";
 
 export function AuthPage() {
   const [notice, setNotice] = useState({ message: "", tone: "success" });
+  const navigate = useNavigate();
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -16,7 +18,7 @@ export function AuthPage() {
       });
 
       setAccessToken(result.accessToken);
-      setNotice({ message: `Welcome back, ${result.user.name}.`, tone: "success" });
+      navigate("/");
     } catch (error) {
       setNotice({ message: error.message, tone: "error" });
     }
@@ -38,6 +40,7 @@ export function AuthPage() {
 
       setAccessToken(result.accessToken);
       setNotice({ message: `Account created for ${result.user.name}. Check email for verification.`, tone: "success" });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
       setNotice({ message: error.message, tone: "error" });
     }
@@ -49,7 +52,7 @@ export function AuthPage() {
         <div>
           <span className="pill auth-pill">AUTHENTICATION</span>
           <h1 className="auth-title">Welcome to StudySwap</h1>
-          <p className="auth-copy">Register, log in, and prepare for password reset and email verification flows.</p>
+          <p className="auth-copy">Register or log in to buy, sell, and exchange academic items.</p>
         </div>
         <div className="two-col">
           <form className="form-grid" onSubmit={handleLogin}>

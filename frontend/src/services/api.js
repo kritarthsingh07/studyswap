@@ -52,6 +52,29 @@ async function request(path, options = {}) {
   return data;
 }
 
+// For multipart/form-data (file uploads) — no Content-Type header so browser sets boundary
+async function requestMultipart(path, formData, method = "POST") {
+  const headers = {};
+  const token = getAccessToken();
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method,
+    headers,
+    body: formData,
+    credentials: "include"
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.message || "Request failed.");
+  }
+
+  return data;
+}
+
 export const api = {
   health: () => request("/health"),
   getFeaturedProducts: () => request("/products/featured"),
@@ -70,6 +93,10 @@ export const api = {
     request("/auth/reset-password", { method: "POST", body: JSON.stringify(payload) }),
   createProduct: (payload) =>
     request("/products", { method: "POST", body: JSON.stringify(payload) }),
+  createProductMultipart: (formData) => requestMultipart("/products", formData, "POST"),
+  updateProduct: (id, payload) =>
+    request(`/products/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
+  deleteProduct: (id) => request(`/products/${id}`, { method: "DELETE" }),
   getCart: () => request("/cart"),
   addToCart: (payload) => request("/cart", { method: "POST", body: JSON.stringify(payload) }),
   updateCartItem: (itemId, payload) =>
